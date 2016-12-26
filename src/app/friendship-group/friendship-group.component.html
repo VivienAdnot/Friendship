@@ -1,0 +1,4 @@
+<div>
+    <h2>{{friendshipGroup.name}}</h2>
+    <app-friendship *ngFor= "let currentFriendship of friendshipGroup.friendships" [friendship]="currentFriendship"></app-friendship>
+</div>

@@ -4,17 +4,26 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { FriendshipComponent } from './friendship/friendship.component';
+import { FriendshipGroupService } from './friendship-group.service';
+import { FriendshipGroupComponent } from './friendship-group/friendship-group.component';
+import { FriendComponent } from './friend/friend.component';
+import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        FriendshipComponent,
+        FriendshipGroupComponent,
+        FriendComponent,
+        FriendshipGroupsComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule
+    ],
+    providers: [FriendshipGroupService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
