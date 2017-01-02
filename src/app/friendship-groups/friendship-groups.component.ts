@@ -15,4 +15,8 @@ export class FriendshipGroupsComponent implements OnInit {
     ngOnInit() {
         this.friendshipGroups = this.friendshipGroupService.getGroups();
     }
+
+    save() {
+        this.friendshipGroupService.save(this.friendshipGroups);
+    }
 }

@@ -2,4 +2,5 @@
     <div *ngFor="let currentFriendshipGroup of friendshipGroups">
         <app-friendship-group [friendshipGroup]="currentFriendshipGroup"></app-friendship-group>
     </div>
+    <button (click)="save()" class="btn btn-success">Save</button>
 </div>
