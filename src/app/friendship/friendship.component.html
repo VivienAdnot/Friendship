@@ -1,6 +1,10 @@
 <div>
     <app-friend [friend]="friendship.friend"></app-friend>
     <p>last Meeting: {{getLastMeetingDate()}}</p>
-    <p>Status: N/A</p>
+
+    <div *ngIf="isLastMeetingTooOld()">
+        <span class="badge">Too old</span>
+    </div>
+    
     <button (click)="meetNow()" [disabled]="alreadyMetToday()" class="btn btn-success">Met !</button>
 </div>

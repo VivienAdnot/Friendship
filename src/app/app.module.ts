@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FriendshipComponent } from './friendship/friendship.component';
 import { FriendshipGroupService } from './friendship-group.service';
+import { FriendshipService } from './friendship.service';
 import { MeetingService } from './meeting.service';
 import { FriendshipGroupComponent } from './friendship-group/friendship-group.component';
 import { FriendComponent } from './friend/friend.component';
@@ -24,7 +25,7 @@ import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups
         FormsModule,
         HttpModule
     ],
-    providers: [FriendshipGroupService, MeetingService],
+    providers: [FriendshipGroupService, MeetingService, FriendshipService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

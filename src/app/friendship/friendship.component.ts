@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FriendshipModel } from '../models/friendship.model';
 import { MeetingModel } from '../models/meeting.model';
-import * as moment from 'moment';
 import { MeetingService } from '../meeting.service';
+import { FriendshipService } from '../friendship.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-friendship',
@@ -12,26 +13,27 @@ import { MeetingService } from '../meeting.service';
 export class FriendshipComponent implements OnInit {
     @Input() friendship: FriendshipModel;
 
-    constructor(private meetingService: MeetingService) { }
+    constructor(private meetingService: MeetingService, private friendshipService: FriendshipService) { }
 
     ngOnInit() {
     }
 
     getLastMeetingDate(): string {
-        const lastMeeting: MeetingModel = this.friendship.meetings[this.friendship.meetings.length - 1];
-        const dateAsMoment = moment(lastMeeting.date);
-        return dateAsMoment.format('MMMM Do YYYY');
+        let lastMeeting: moment.Moment = this.friendshipService.getLastMeeting(this.friendship);
+        return lastMeeting.format('MMMM Do YYYY');
     }
 
     meetNow(): void {
-        const newDate = moment();
-        this.friendship.meetings.push({date: newDate});
+        let now = moment();
+        this.friendship.meetings.push({date: now});
     }
 
     alreadyMetToday(): boolean {
-        const lastMeeting: MeetingModel = this.friendship.meetings[this.friendship.meetings.length - 1];
-        const dateAsMoment = moment(lastMeeting.date);
+        let lastMeeting: moment.Moment = this.friendshipService.getLastMeeting(this.friendship);
+        return this.meetingService.isToday(lastMeeting);
+    }
 
-        return this.meetingService.isToday(dateAsMoment);
+    isLastMeetingTooOld(): boolean {
+        return this.friendshipService.isLastMeetingTooOld(this.friendship);
     }
 }
