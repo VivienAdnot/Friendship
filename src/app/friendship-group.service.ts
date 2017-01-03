@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FriendshipGroupModel } from './models/friendshipGroup.model';
 import { FriendModel } from './models/friend.model';
 import { FriendshipModel } from './models/friendship.model';
+import { PARIS } from './mock-friendshipGroups';
 
 @Injectable()
 export class FriendshipGroupService {
@@ -11,7 +12,7 @@ export class FriendshipGroupService {
     getGroups(): Array<FriendshipGroupModel> {
         const stored = window.localStorage.getItem("friendshipGroups");
         if (!stored) {
-            return [];
+            return [ PARIS ]; // todo remove mock data when we can create a new friendship
         }
 
         const friendshipGroups: Array<FriendshipGroupModel> = JSON.parse(stored);
