@@ -9,13 +9,35 @@ export class FriendshipService {
     constructor() { }
 
     isLastMeetingTooOld(friendship: FriendshipModel): boolean {
-        let lastMeeting: moment.Moment = this.getLastMeeting(friendship);
-        let twoMonthsFromNow = moment().subtract(2, 'months');
-        return lastMeeting.isSameOrBefore(twoMonthsFromNow, 'day');
+        const mostRecentMeeting: MeetingModel = this.getMostRecentMeeting(friendship);
+        const twoMonthsFromNow = moment().subtract(2, 'months');
+        return mostRecentMeeting.date.isSameOrBefore(twoMonthsFromNow, 'day');
     }
 
-    getLastMeeting(friendship: FriendshipModel): moment.Moment {
-        let lastMeeting: MeetingModel = friendship.meetings[friendship.meetings.length - 1];
-        return moment(lastMeeting.date);
+    getMostRecentMeeting(friendship: FriendshipModel): MeetingModel {
+        const meetingsDates: moment.Moment[] = friendship.meetings.map((meeting: MeetingModel) => {
+            return meeting.date;
+        });
+
+        const mostRecentMomentFromNow: moment.Moment = moment.max(meetingsDates);
+
+        return friendship.meetings.find((meeting: MeetingModel) => {
+            return meeting.date == mostRecentMomentFromNow;
+        });
+    }
+
+    isMeetingCreationAllowed(friendship: FriendshipModel, meetingProposal:MeetingModel): boolean {
+        const today = moment();
+        if(meetingProposal.date.isAfter(today, 'day')) {
+            return false;
+        }
+
+        for(let meeting of friendship.meetings) {
+            if(meeting.date.isSame(meetingProposal.date, 'day')) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

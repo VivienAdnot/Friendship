@@ -2,12 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { DatePickerModule } from 'ng2-datepicker';
 
-import { AppComponent } from './app.component';
-import { FriendshipComponent } from './friendship/friendship.component';
 import { FriendshipGroupService } from './friendship-group.service';
 import { FriendshipService } from './friendship.service';
 import { MeetingService } from './meeting.service';
+import { LocalStorageDaoService } from './local-storage-dao.service';
+
+import { AppComponent } from './app.component';
+import { FriendshipComponent } from './friendship/friendship.component';
 import { FriendshipGroupComponent } from './friendship-group/friendship-group.component';
 import { FriendComponent } from './friend/friend.component';
 import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups.component';
@@ -23,9 +26,10 @@ import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        DatePickerModule
     ],
-    providers: [FriendshipGroupService, MeetingService, FriendshipService],
+    providers: [FriendshipGroupService, MeetingService, FriendshipService, LocalStorageDaoService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

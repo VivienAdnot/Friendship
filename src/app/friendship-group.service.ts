@@ -3,23 +3,23 @@ import { FriendshipGroupModel } from './models/friendshipGroup.model';
 import { FriendModel } from './models/friend.model';
 import { FriendshipModel } from './models/friendship.model';
 import { PARIS } from './mock-friendshipGroups';
+import { LocalStorageDaoService } from './local-storage-dao.service';
 
 @Injectable()
 export class FriendshipGroupService {
 
-    constructor() { }
+    constructor(private dao: LocalStorageDaoService) { }
 
     getGroups(): Array<FriendshipGroupModel> {
-        const stored = window.localStorage.getItem("friendshipGroups");
-        if (!stored) {
-            return [ PARIS ]; // todo remove mock data when we can create a new friendship
-        }
+        let friendshipGroups: Array<FriendshipGroupModel> = this.dao.getFriendShipGroups();
+        // if(!friendshipGroups) {
+        //     friendshipGroups = [ PARIS ];
+        // }
 
-        const friendshipGroups: Array<FriendshipGroupModel> = JSON.parse(stored);
         return friendshipGroups;
     }
 
     save(friendshipGroups: Array<FriendshipGroupModel>) {
-        window.localStorage.setItem("friendshipGroups", JSON.stringify(friendshipGroups));
+        this.dao.saveFriendShipGroups(friendshipGroups);
     }
 }

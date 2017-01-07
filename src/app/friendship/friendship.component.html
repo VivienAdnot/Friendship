@@ -1,10 +1,17 @@
 <div>
     <app-friend [friend]="friendship.friend"></app-friend>
-    <p>last Meeting: {{getLastMeetingDate()}}</p>
+    <p>last Meeting: {{getMostRecentMeeting()}}</p>
 
     <div *ngIf="isLastMeetingTooOld()">
         <span class="badge">Too old</span>
     </div>
-    
-    <button (click)="meetNow()" [disabled]="alreadyMetToday()" class="btn btn-success">Met !</button>
+
+    <div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">
+        <button type="button" class="close" aria-label="Close" (click)="meetingCreationFailed = false;">
+            <span aria-hidden="true">&#215;</span>
+        </button>
+        You already met {{friendship.friend.name}} that day
+    </div>    
+
+    <ng2-datepicker [(ngModel)]="date" (outputEvents)="met($event)"></ng2-datepicker>
 </div>
