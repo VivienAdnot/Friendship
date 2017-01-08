@@ -9,9 +9,11 @@ import { FriendshipModel } from '../models/friendship.model';
 })
 export class FriendshipGroupComponent implements OnInit {
     @Input() friendshipGroup: FriendshipGroupModel;
+    
     friendshipCreationFailed: boolean;
 
-    constructor() { }
+    constructor() {
+    }
 
     ngOnInit() { }
 
@@ -21,10 +23,12 @@ export class FriendshipGroupComponent implements OnInit {
         });
 
         const friendshipNameAlreadyExists = existingFriendshipNames.find((name: string) => name === friendship.friend.name);
+
         if(friendshipNameAlreadyExists) {
             this.friendshipCreationFailed = true;
         } else {
             this.friendshipGroup.friendships.push(friendship);
+            this.friendshipCreationFailed = false;
         }
     }
 }

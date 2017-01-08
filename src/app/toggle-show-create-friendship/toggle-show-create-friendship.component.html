@@ -1,0 +1,11 @@
+<div>
+    <button *ngIf="showFriendshipCreationEl === false" type="button" class="btn btn-success" (click)="showFriendshipCreationEl = true;">
+        Show friendship creation box
+    </button>
+
+    <div *ngIf="showFriendshipCreationEl === true">
+        <button type="button" class="btn" (click)="dismissFriendshipCreationEl()">Close friendship creation box</button>
+
+        <app-create-friendship (friendshipCreated)="relayCreateFriendship($event)"></app-create-friendship>
+    </div>
+</div>

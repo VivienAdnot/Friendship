@@ -1,10 +1,13 @@
 <div>
     <app-friend [friend]="friendship.friend"></app-friend>
-    <p>last Meeting: {{getMostRecentMeeting()}}</p>
+    <div *ngIf="friendship.meetings.length">
+        <p>last Meeting: {{getMostRecentMeeting()}}</p>
 
-    <div *ngIf="isMostRecentMeetingTooOld()">
-        <span class="badge">Too old</span>
+        <div *ngIf="isMostRecentMeetingTooOld()">
+            <span class="badge">Too old</span>
+        </div>
     </div>
+
 
     <div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">
         <button type="button" class="close" aria-label="Close" (click)="meetingCreationFailed = false;">

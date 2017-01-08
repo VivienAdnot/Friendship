@@ -1,11 +1,11 @@
 <div>
-    <h2>{{friendshipGroup.name}}</h2>
-    <app-friendship *ngFor= "let currentFriendship of friendshipGroup.friendships" [friendship]="currentFriendship"></app-friendship>
-
     <div class="alert alert-danger" *ngIf="friendshipCreationFailed">
         <button type="button" class="close" aria-label="Close" (click)="friendshipCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
-        sorry, this friend already exists. Choose another please.
+        Sorry, this friendship already exists. Choose another name please.
     </div>
 
-    <app-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-create-friendship>
+    <h2>{{friendshipGroup.name}}</h2>
+    <app-friendship *ngFor="let currentFriendship of friendshipGroup.friendships" [friendship]="currentFriendship"></app-friendship>
+
+    <app-toggle-show-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-toggle-show-create-friendship>
 </div>

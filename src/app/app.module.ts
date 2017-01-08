@@ -15,6 +15,7 @@ import { FriendshipGroupComponent } from './friendship-group/friendship-group.co
 import { FriendComponent } from './friend/friend.component';
 import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups.component';
 import { CreateFriendshipComponent } from './create-friendship/create-friendship.component';
+import { ToggleShowCreateFriendshipComponent } from './toggle-show-create-friendship/toggle-show-create-friendship.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { CreateFriendshipComponent } from './create-friendship/create-friendship
         FriendshipGroupComponent,
         FriendComponent,
         FriendshipGroupsComponent,
-        CreateFriendshipComponent
+        CreateFriendshipComponent,
+        ToggleShowCreateFriendshipComponent
     ],
     imports: [
         BrowserModule,
