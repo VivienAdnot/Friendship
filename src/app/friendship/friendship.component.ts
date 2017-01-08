@@ -5,6 +5,7 @@ import { MeetingService } from '../meeting.service';
 import { FriendshipService } from '../friendship.service';
 import * as moment from 'moment';
 import { DateModel } from 'ng2-datepicker';
+import { DatePickerOptions } from 'ng2-datepicker';
 
 @Component({
   selector: 'app-friendship',
@@ -14,8 +15,11 @@ import { DateModel } from 'ng2-datepicker';
 export class FriendshipComponent implements OnInit {
     @Input() friendship: FriendshipModel;
     meetingCreationFailed: boolean;
+    options: DatePickerOptions;
 
-    constructor(private meetingService: MeetingService, private friendshipService: FriendshipService) { }
+    constructor(private meetingService: MeetingService, private friendshipService: FriendshipService) {
+        this.options = { maxDate: new Date()};
+    }
 
     ngOnInit() {
     }
@@ -23,11 +27,6 @@ export class FriendshipComponent implements OnInit {
     getMostRecentMeeting(): string {
         const mostRecentMeeting: MeetingModel = this.friendshipService.getMostRecentMeeting(this.friendship);
         return mostRecentMeeting.date.format('MMMM Do YYYY');
-    }
-
-    meetNow(): void {
-        let now = moment();
-        this.friendship.meetings.push({date: now});
     }
     
     met(datePickerEvent: { type: string, data: string | DateModel }): void {
@@ -53,7 +52,7 @@ export class FriendshipComponent implements OnInit {
         return this.meetingService.isToday(mostRecentMeeting.date);
     }
 
-    isLastMeetingTooOld(): boolean {
-        return this.friendshipService.isLastMeetingTooOld(this.friendship);
+    isMostRecentMeetingTooOld(): boolean {
+        return this.friendshipService.isMostRecentMeetingTooOld(this.friendship);
     }
 }

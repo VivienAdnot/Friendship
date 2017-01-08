@@ -8,7 +8,7 @@ export class FriendshipService {
 
     constructor() { }
 
-    isLastMeetingTooOld(friendship: FriendshipModel): boolean {
+    isMostRecentMeetingTooOld(friendship: FriendshipModel): boolean {
         const mostRecentMeeting: MeetingModel = this.getMostRecentMeeting(friendship);
         const twoMonthsFromNow = moment().subtract(2, 'months');
         return mostRecentMeeting.date.isSameOrBefore(twoMonthsFromNow, 'day');

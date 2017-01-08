@@ -14,6 +14,7 @@ import { FriendshipComponent } from './friendship/friendship.component';
 import { FriendshipGroupComponent } from './friendship-group/friendship-group.component';
 import { FriendComponent } from './friend/friend.component';
 import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups.component';
+import { CreateFriendshipComponent } from './create-friendship/create-friendship.component';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { FriendshipGroupsComponent } from './friendship-groups/friendship-groups
         FriendshipComponent,
         FriendshipGroupComponent,
         FriendComponent,
-        FriendshipGroupsComponent
+        FriendshipGroupsComponent,
+        CreateFriendshipComponent
     ],
     imports: [
         BrowserModule,

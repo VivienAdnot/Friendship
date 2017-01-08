@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <!--<div class="alert alert-danger" *ngIf="authenticationFailed">
+            <button type="button" class="close" aria-label="Close" (click)="authenticationFailed = false;"><span aria-hidden="true">&#215;</span></button>
+            Nope, try again...
+        </div>-->
+
+        <form (ngSubmit)="createFriendship()" #createFriendshipForm="ngForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name" class="form-control" name="name" [(ngModel)]="friendshipFormModel.name" required #nameCtrl="ngModel">
+                <div *ngIf="nameCtrl.control.dirty && nameCtrl.control.hasError('required')">Name is required</div>
+            </div>
+
+            <ng2-datepicker name="meetingDate" [(ngModel)]="friendshipFormModel.meetingDate"></ng2-datepicker>
+
+            <button class="btn btn-primary" type="submit" [disabled]="!createFriendshipForm.valid">Create Friendship</button>
+        </form>
+    </div>
+</div>

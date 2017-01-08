@@ -2,7 +2,7 @@
     <app-friend [friend]="friendship.friend"></app-friend>
     <p>last Meeting: {{getMostRecentMeeting()}}</p>
 
-    <div *ngIf="isLastMeetingTooOld()">
+    <div *ngIf="isMostRecentMeetingTooOld()">
         <span class="badge">Too old</span>
     </div>
 
@@ -13,5 +13,5 @@
         You already met {{friendship.friend.name}} that day
     </div>    
 
-    <ng2-datepicker [(ngModel)]="date" (outputEvents)="met($event)"></ng2-datepicker>
+    <ng2-datepicker [options]="options" (outputEvents)="met($event)"></ng2-datepicker>
 </div>
