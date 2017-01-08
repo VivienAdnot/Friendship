@@ -1,0 +1,17 @@
+<form (ngSubmit)="createFriendshipGroup()" #createFriendshipGroupForm="ngForm">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" name="name" [(ngModel)]="friendshipGroupFormModel.name" required #nameCtrl="ngModel">
+        <div *ngIf="nameCtrl.control.dirty && nameCtrl.control.hasError('required')">Name is required</div>
+    </div>
+
+    <div class="form-group">
+        <label for="maxWeekSpanBetweenMeetings">Max Week Span Between Meetings</label>
+        <input id="maxWeekSpanBetweenMeetings" class="form-control" name="maxWeekSpanBetweenMeetings" [(ngModel)]="friendshipGroupFormModel.maxWeekSpanBetweenMeetings" required #maxWeekSpanBetweenMeetingsCtrl="ngModel">
+        <div *ngIf="maxWeekSpanBetweenMeetingsCtrl.control.dirty && maxWeekSpanBetweenMeetingsCtrl.control.hasError('required')">maxWeekSpanBetweenMeetingsCtrl is required</div>
+    </div>    
+
+    <button class="btn btn-primary" type="submit" [disabled]="!createFriendshipGroupForm.valid">
+        Create Friendship Group
+    </button>
+</form>
