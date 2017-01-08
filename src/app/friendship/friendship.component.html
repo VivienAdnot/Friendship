@@ -8,7 +8,6 @@
         </div>
     </div>
 
-
     <div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">
         <button type="button" class="close" aria-label="Close" (click)="meetingCreationFailed = false;">
             <span aria-hidden="true">&#215;</span>
@@ -17,4 +16,6 @@
     </div>    
 
     <ng2-datepicker [options]="options" (outputEvents)="met($event)"></ng2-datepicker>
+
+    <button (click)="delete()" class="btn btn-danger">delete {{friendship.friend.name}}</button>
 </div>

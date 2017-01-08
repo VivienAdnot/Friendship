@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FriendshipModel } from '../models/friendship.model';
 import { MeetingModel } from '../models/meeting.model';
 import { MeetingService } from '../meeting.service';
@@ -16,6 +16,7 @@ export class FriendshipComponent implements OnInit {
     @Input() friendship: FriendshipModel;
     meetingCreationFailed: boolean;
     options: DatePickerOptions;
+    @Output() deleteFriendship = new EventEmitter<FriendshipModel>();
 
     constructor(private meetingService: MeetingService, private friendshipService: FriendshipService) {
         this.options = { maxDate: new Date()};
@@ -54,5 +55,9 @@ export class FriendshipComponent implements OnInit {
 
     isMostRecentMeetingTooOld(): boolean {
         return this.friendshipService.isMostRecentMeetingTooOld(this.friendship);
+    }
+
+    delete() {
+        this.deleteFriendship.emit(this.friendship);
     }
 }
