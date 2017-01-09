@@ -14,12 +14,11 @@ import { DatePickerOptions } from 'ng2-datepicker';
 })
 export class FriendshipComponent implements OnInit {
     @Input() friendship: FriendshipModel;
+    @Input() maxWeekSpanBetweenMeetings: number;
     meetingCreationFailed: boolean;
-    options: DatePickerOptions;
     @Output() deleteFriendship = new EventEmitter<FriendshipModel>();
 
     constructor(private meetingService: MeetingService, private friendshipService: FriendshipService) {
-        this.options = { maxDate: new Date()};
     }
 
     ngOnInit() {
@@ -48,13 +47,8 @@ export class FriendshipComponent implements OnInit {
         }
     }
 
-    alreadyMetToday(): boolean {
-        const mostRecentMeeting: MeetingModel = this.friendshipService.getMostRecentMeeting(this.friendship);
-        return this.meetingService.isToday(mostRecentMeeting.date);
-    }
-
     isMostRecentMeetingTooOld(): boolean {
-        return this.friendshipService.isMostRecentMeetingTooOld(this.friendship);
+        return this.friendshipService.isMostRecentMeetingTooOld(this.friendship, this.maxWeekSpanBetweenMeetings);
     }
 
     delete() {
