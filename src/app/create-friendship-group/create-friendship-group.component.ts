@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FriendshipGroupModel } from '../models/friendshipGroup.model';
 
-interface IFriendshipGroupFormModel {
+export interface IFriendshipGroupFormModel {
     name: string;
     maxWeekSpanBetweenMeetings: number;
 }
