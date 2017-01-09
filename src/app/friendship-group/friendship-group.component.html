@@ -8,4 +8,6 @@
     <app-friendship *ngFor="let currentFriendship of friendshipGroup.friendships" [friendship]="currentFriendship" (deleteFriendship)="deleteFriendship($event)"></app-friendship>
 
     <app-toggle-show-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-toggle-show-create-friendship>
+
+    <button (click)="requestDeleteFriendshipGroup()" class="btn btn-danger">delete {{friendshipGroup.name}}</button>
 </div>
