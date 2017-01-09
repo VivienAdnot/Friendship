@@ -35,4 +35,9 @@ export class FriendshipGroupsComponent implements OnInit {
             this.friendshipGroupCreationFailed = false;
         }
     }
+
+    deleteFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
+        const index: number = this.friendshipGroups.indexOf(friendshipGroup);
+        this.friendshipGroups.splice(index, 1);
+    }
 }

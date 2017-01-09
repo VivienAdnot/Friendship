@@ -5,7 +5,10 @@
     </div>
 
     <div *ngFor="let currentFriendshipGroup of friendshipGroups">
-        <app-friendship-group [friendshipGroup]="currentFriendshipGroup"></app-friendship-group>
+        <app-friendship-group
+            [friendshipGroup]="currentFriendshipGroup"
+            (requestDelete)="deleteFriendshipGroup($event)">
+        </app-friendship-group>
     </div>
 
     <app-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-create-friendship-group>
