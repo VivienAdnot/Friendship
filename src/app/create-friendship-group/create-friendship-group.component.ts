@@ -1,10 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FriendshipGroupModel } from '../models/friendshipGroup.model';
-
-export interface IFriendshipGroupFormModel {
-    name: string;
-    maxWeekSpanBetweenMeetings: number;
-}
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-create-friendship-group',
@@ -12,30 +8,30 @@ export interface IFriendshipGroupFormModel {
     styleUrls: ['./create-friendship-group.component.css']
 })
 export class CreateFriendshipGroupComponent implements OnInit {
-    friendshipGroupFormModel: IFriendshipGroupFormModel;
-    @Output() friendshipGroupCreated = new EventEmitter<FriendshipGroupModel>();
+    friendshipGroupForm: FormGroup;
+    nameCtrl: FormControl;
+    maxWeekSpanBetweenMeetingsCtrl: FormControl;
 
-    constructor() {
-        this.friendshipGroupFormModel = {
-            name: '',
-            maxWeekSpanBetweenMeetings: 6
-        };      
+    static numberMin(maxWeekSpanBetweenMeetingsCtrl: FormControl) {
+        const value:number = maxWeekSpanBetweenMeetingsCtrl.value;
+        return (Number.isNaN(value) || value < 1) ? { numberMin: true } : null;
+    }    
+
+    constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
+        this.nameCtrl = this.formBuilder.control('', Validators.required);
+        this.maxWeekSpanBetweenMeetingsCtrl = this.formBuilder.control('', [Validators.required, CreateFriendshipGroupComponent.numberMin]);
+
+        this.friendshipGroupForm = this.formBuilder.group({
+            nameCtrl: this.nameCtrl,
+            maxWeekSpanBetweenMeetingsCtrl: this.maxWeekSpanBetweenMeetingsCtrl
+        });       
     }
 
     createFriendshipGroup() {
-        const friendshipGroupCreation: FriendshipGroupModel = this.frienshipGroupFactory(this.friendshipGroupFormModel);
-        this.friendshipGroupCreated.emit(friendshipGroupCreation);
+        console.log(this.friendshipGroupForm.value.nameCtrl);
+        console.log(this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
     }
-
-    frienshipGroupFactory(friendshipFormModel: IFriendshipGroupFormModel): FriendshipGroupModel {
-        return {
-            name: friendshipFormModel.name,
-            maxWeekSpanBetweenMeetings: friendshipFormModel.maxWeekSpanBetweenMeetings,
-            friendships: []
-        };
-    }    
-
 }
