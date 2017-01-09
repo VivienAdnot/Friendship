@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { FriendshipModel } from '../models/friendship.model';
 
-interface IDatePickerDateModel {
+export interface IDatePickerDateModel {
     day: string;
     month: string;
     year: string;
@@ -10,15 +10,15 @@ interface IDatePickerDateModel {
     momentObj: moment.Moment;
 }
 
-interface IFriendshipFormModel {
+export interface IFriendshipFormModel {
     name: string;
     meetingDate?: IDatePickerDateModel;
 }
 
 @Component({
-  selector: 'app-create-friendship',
-  templateUrl: './create-friendship.component.html',
-  styleUrls: ['./create-friendship.component.css']
+    selector: 'app-create-friendship',
+    templateUrl: './create-friendship.component.html',
+    styleUrls: ['./create-friendship.component.css']
 })
 
 export class CreateFriendshipComponent implements OnInit {
