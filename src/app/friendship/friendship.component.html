@@ -15,7 +15,7 @@
         You already met {{friendship.friend.name}} that day
     </div>    
 
-    <ng2-datepicker [options]="options" (outputEvents)="met($event)"></ng2-datepicker>
+    <ng2-datepicker (outputEvents)="met($event)"></ng2-datepicker>
 
     <button (click)="delete()" class="btn btn-danger">delete {{friendship.friend.name}}</button>
 </div>

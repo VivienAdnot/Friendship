@@ -5,7 +5,12 @@
     </div>
 
     <h2>{{friendshipGroup.name}}</h2>
-    <app-friendship *ngFor="let currentFriendship of friendshipGroup.friendships" [friendship]="currentFriendship" (deleteFriendship)="deleteFriendship($event)"></app-friendship>
+    <app-friendship
+        *ngFor="let currentFriendship of friendshipGroup.friendships"
+        [friendship]="currentFriendship"
+        [maxWeekSpanBetweenMeetings]="friendshipGroup.maxWeekSpanBetweenMeetings"
+        (deleteFriendship)="deleteFriendship($event)">
+    </app-friendship>
 
     <app-toggle-show-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-toggle-show-create-friendship>
 
