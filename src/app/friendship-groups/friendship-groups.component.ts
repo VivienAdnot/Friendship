@@ -22,9 +22,13 @@ export class FriendshipGroupsComponent implements OnInit {
     }
 
     tryCreateFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
-        const existingFriendshipGroupNames: string[] = this.friendshipGroups.map((friendshipGroup: FriendshipGroupModel) => {
-            return friendshipGroup.name;
-        });
+        let existingFriendshipGroupNames: string[] = [];
+
+        if(this.friendshipGroups.length) {
+            existingFriendshipGroupNames = this.friendshipGroups.map((friendshipGroup: FriendshipGroupModel) => {
+                return friendshipGroup.name;
+            });
+        }
 
         const friendshipNameAlreadyExists = existingFriendshipGroupNames.find((name: string) => name === friendshipGroup.name);
 

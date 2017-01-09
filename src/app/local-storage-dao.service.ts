@@ -10,13 +10,16 @@ export class LocalStorageDaoService {
     getFriendShipGroups(): Array<FriendshipGroupModel> {
         const stored = window.localStorage.getItem("friendshipGroups");
 
-        const friendshipGroups: Array<FriendshipGroupModel> = this.deserialize(stored);
+        let friendshipGroups: Array<FriendshipGroupModel> = this.deserialize(stored);
+        if(!friendshipGroups) {
+            friendshipGroups = [];
+        }
         return friendshipGroups;
     }
 
     saveFriendShipGroups(friendshipGroups: Array<FriendshipGroupModel>): void {
         window.localStorage.setItem("friendshipGroups", this.serialize(friendshipGroups));
-    }    
+    }
 
     private serialize(collection:any): string {
         const RE_ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d{3})Z$/;

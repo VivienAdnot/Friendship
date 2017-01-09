@@ -11,7 +11,7 @@
         </app-friendship-group>
     </div>
 
-    <app-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-create-friendship-group>
+    <app-toggle-show-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-toggle-show-create-friendship-group>
 
     <button (click)="save()" class="btn btn-success">Save</button>
 </div>
