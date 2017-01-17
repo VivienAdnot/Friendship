@@ -5,12 +5,10 @@
 
 <div class="card-desk-wrapper">
     <div class="card-deck v-h-scrollable">
-        <div *ngFor="let currentFriendshipGroup of friendshipGroups">
-            <app-friendship-group
-                [friendshipGroup]="currentFriendshipGroup"
-                (requestDelete)="deleteFriendshipGroup($event)">
-            </app-friendship-group>
-        </div>
+        <app-friendship-group *ngFor="let currentFriendshipGroup of friendshipGroups"
+            [friendshipGroup]="currentFriendshipGroup"
+            (requestDelete)="deleteFriendshipGroup($event)">
+        </app-friendship-group>
     </div>
 </div>
 

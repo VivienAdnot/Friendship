@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
     styleUrls: ['./create-friendship-group.component.css']
 })
 export class CreateFriendshipGroupComponent implements OnInit {
+    @Output() friendshipGroupCreated = new EventEmitter<FriendshipGroupModel>();
     friendshipGroupForm: FormGroup;
     nameCtrl: FormControl;
     maxWeekSpanBetweenMeetingsCtrl: FormControl;
@@ -15,7 +16,7 @@ export class CreateFriendshipGroupComponent implements OnInit {
     static numberMin(maxWeekSpanBetweenMeetingsCtrl: FormControl) {
         const value:number = maxWeekSpanBetweenMeetingsCtrl.value;
         return (Number.isNaN(value) || value < 1) ? { numberMin: true } : null;
-    }    
+    }
 
     constructor(private formBuilder: FormBuilder) {
     }
@@ -31,7 +32,15 @@ export class CreateFriendshipGroupComponent implements OnInit {
     }
 
     createFriendshipGroup() {
-        console.log(this.friendshipGroupForm.value.nameCtrl);
-        console.log(this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
+        const friendshipGroupCreation: FriendshipGroupModel = this.frienshipGroupFactory(this.friendshipGroupForm.value.nameCtrl, this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
+        this.friendshipGroupCreated.emit(friendshipGroupCreation);
+    }
+
+    frienshipGroupFactory(name:string, maxWeekSpanBetweenMeetings:number): FriendshipGroupModel {
+        return {
+            name: name,
+            maxWeekSpanBetweenMeetings: maxWeekSpanBetweenMeetings,
+            friendships: []
+        };
     }
 }

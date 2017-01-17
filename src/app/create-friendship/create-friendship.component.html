@@ -5,7 +5,9 @@
         <div *ngIf="nameCtrl.control.dirty && nameCtrl.control.hasError('required')">Name is required</div>
     </div>
 
-    <ng2-datepicker name="meetingDate" [(ngModel)]="friendshipFormModel.meetingDate"></ng2-datepicker>
+    <div>
+        <ng2-datepicker name="meetingDate" [(ngModel)]="friendshipFormModel.meetingDate"></ng2-datepicker>
+    </div>
 
     <button class="btn btn-primary" type="submit" [disabled]="!createFriendshipForm.valid">Create Friendship</button>
 </form>
