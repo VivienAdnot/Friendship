@@ -1,0 +1,4 @@
+.card-deck .v-h-scrollable {
+    display: inline-flex;
+    flex-wrap: nowrap;
+}

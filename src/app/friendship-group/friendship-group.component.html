@@ -1,18 +1,21 @@
-<div>
-    <div class="alert alert-danger" *ngIf="friendshipCreationFailed">
-        <button type="button" class="close" aria-label="Close" (click)="friendshipCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
-        Sorry, this friendship already exists. Choose another name please.
+<!--<div class="col-md-3">-->
+    <div class="card">
+        <!--<div class="alert alert-danger" *ngIf="friendshipCreationFailed">
+            <button type="button" class="close" aria-label="Close" (click)="friendshipCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
+            Sorry, this friendship already exists. Choose another name please.
+        </div>-->
+
+        <h3 class="card-header">{{friendshipGroup.name}}</h3>
+
+        <app-friendship
+            *ngFor="let currentFriendship of friendshipGroup.friendships"
+            [friendship]="currentFriendship"
+            [maxWeekSpanBetweenMeetings]="friendshipGroup.maxWeekSpanBetweenMeetings"
+            (deleteFriendship)="deleteFriendship($event)">
+        </app-friendship>
+
+        <!--<app-toggle-show-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-toggle-show-create-friendship>-->
+
+        <!--<button (click)="requestDeleteFriendshipGroup()" class="btn btn-danger">delete {{friendshipGroup.name}}</button>-->
     </div>
-
-    <h2>{{friendshipGroup.name}}</h2>
-    <app-friendship
-        *ngFor="let currentFriendship of friendshipGroup.friendships"
-        [friendship]="currentFriendship"
-        [maxWeekSpanBetweenMeetings]="friendshipGroup.maxWeekSpanBetweenMeetings"
-        (deleteFriendship)="deleteFriendship($event)">
-    </app-friendship>
-
-    <app-toggle-show-create-friendship (friendshipCreated)="tryCreateFriendship($event)"></app-toggle-show-create-friendship>
-
-    <button (click)="requestDeleteFriendshipGroup()" class="btn btn-danger">delete {{friendshipGroup.name}}</button>
-</div>
+<!--</div>-->

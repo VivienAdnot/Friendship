@@ -1,21 +1,19 @@
-<div>
+<div class="card-block v-friend">
     <app-friend [friend]="friendship.friend"></app-friend>
-    <div *ngIf="friendship.meetings.length">
-        <p>last Meeting: {{getMostRecentMeeting()}}</p>
 
-        <div *ngIf="isMostRecentMeetingTooOld()">
-            <span class="badge">Too old</span>
-        </div>
-    </div>
+    <p class="card-text" *ngIf="friendship.meetings.length">
+        last Meeting: {{getMostRecentMeeting()}}
+        <span class="badge" *ngIf="isMostRecentMeetingTooOld()">Too old</span>
+    </p>
 
-    <div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">
+    <!--<div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">
         <button type="button" class="close" aria-label="Close" (click)="meetingCreationFailed = false;">
             <span aria-hidden="true">&#215;</span>
         </button>
         You already met {{friendship.friend.name}} that day
-    </div>    
+    </div>-->
 
     <ng2-datepicker (outputEvents)="met($event)"></ng2-datepicker>
 
-    <button (click)="delete()" class="btn btn-danger">delete {{friendship.friend.name}}</button>
+    <!--<button (click)="delete()" class="btn btn-danger">delete {{friendship.friend.name}}</button>-->
 </div>
