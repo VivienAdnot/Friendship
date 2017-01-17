@@ -1,11 +1,13 @@
-<div>
-    <button *ngIf="showFriendshipGroupCreationEl === false" type="button" class="btn btn-success" (click)="showFriendshipGroupCreationEl = true;">
-        Show friendship group creation box
-    </button>
+<div class="card v-card">
+    <div class="card-block">
+        <button *ngIf="showFriendshipGroupCreationEl === false" type="button" class="btn btn-link" (click)="showFriendshipGroupCreationEl = true;">
+            Add friendship group
+        </button>
 
-    <div *ngIf="showFriendshipGroupCreationEl === true">
-        <button type="button" class="btn" (click)="dismissFriendshipGroupCreationEl()">Close friendship group creation box</button>
+        <div *ngIf="showFriendshipGroupCreationEl === true">
+            <button type="button" class="btn btn-link" (click)="dismissFriendshipGroupCreationEl()">Dismiss</button>
 
-        <app-create-friendship-group (friendshipGroupCreated)="relayCreateFriendshipGroup($event)"></app-create-friendship-group>
+            <app-create-friendship-group (friendshipGroupCreated)="relayCreateFriendshipGroup($event)"></app-create-friendship-group>
+        </div>
     </div>
 </div>

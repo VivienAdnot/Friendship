@@ -1,10 +1,10 @@
 <div class="card-footer">
-    <button *ngIf="showFriendshipCreationEl === false" type="button" class="btn btn-success" (click)="showFriendshipCreationEl = true;">
-        Show friendship creation box
+    <button *ngIf="showFriendshipCreationEl === false" type="button" class="btn btn-link" (click)="showFriendshipCreationEl = true;">
+        Add friendship
     </button>
 
     <div *ngIf="showFriendshipCreationEl === true">
-        <button type="button" class="btn" (click)="dismissFriendshipCreationEl()">Close friendship creation box</button>
+        <button type="button" class="btn btn-link" (click)="dismissFriendshipCreationEl()">Dismiss</button>
 
         <app-create-friendship (friendshipCreated)="relayCreateFriendship($event)"></app-create-friendship>
     </div>

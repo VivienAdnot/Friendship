@@ -2,8 +2,8 @@
     <app-friend [friend]="friendship.friend"></app-friend>
 
     <p class="card-text" *ngIf="friendship.meetings.length">
-        last Meeting: {{getMostRecentMeeting()}}
-        <span class="badge" *ngIf="isMostRecentMeetingTooOld()">Too old</span>
+        {{getMostRecentMeeting()}}
+        <label class="tag tag-pill tag-danger" *ngIf="isMostRecentMeetingTooOld()">too old</label>
     </p>
 
     <!--<div id="meeting-creation-failed" class="alert alert-danger" *ngIf="meetingCreationFailed">

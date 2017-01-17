@@ -26,7 +26,7 @@ export class FriendshipComponent implements OnInit {
 
     getMostRecentMeeting(): string {
         const mostRecentMeeting: MeetingModel = this.friendshipService.getMostRecentMeeting(this.friendship);
-        return mostRecentMeeting.date.format('MMMM Do YYYY');
+        return mostRecentMeeting.date.fromNow();
     }
     
     met(datePickerEvent: { type: string, data: string | DateModel }): void {

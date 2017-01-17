@@ -9,9 +9,11 @@
             [friendshipGroup]="currentFriendshipGroup"
             (requestDelete)="deleteFriendshipGroup($event)">
         </app-friendship-group>
+
+        <app-toggle-show-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-toggle-show-create-friendship-group>
+
     </div>
 </div>
 
-<app-toggle-show-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-toggle-show-create-friendship-group>
 
 <!--<button (click)="save()" class="btn btn-success">Save</button>-->
