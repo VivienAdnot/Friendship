@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FriendshipGroupModel } from '../models/friendshipGroup.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -8,17 +8,23 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
     styleUrls: ['./create-friendship-group.component.css']
 })
 export class CreateFriendshipGroupComponent implements OnInit {
-    @Output() friendshipGroupCreated = new EventEmitter<FriendshipGroupModel>();
+    @Input() friendshipGroups: Array<FriendshipGroupModel>;
+    @Input() opened: boolean;
+
+    friendshipGroupCreationFailed: boolean;
+
     friendshipGroupForm: FormGroup;
     nameCtrl: FormControl;
     maxWeekSpanBetweenMeetingsCtrl: FormControl;
 
-    static numberMin(maxWeekSpanBetweenMeetingsCtrl: FormControl) {
-        const value:number = maxWeekSpanBetweenMeetingsCtrl.value;
-        return (Number.isNaN(value) || value < 1) ? { numberMin: true } : null;
-    }
-
     constructor(private formBuilder: FormBuilder) {
+        if(this.opened === undefined) {
+            this.opened = false;
+        }
+
+        if(!this.friendshipGroups) {
+            this.friendshipGroups = new Array<FriendshipGroupModel>();
+        }
     }
 
     ngOnInit() {
@@ -31,10 +37,36 @@ export class CreateFriendshipGroupComponent implements OnInit {
         });       
     }
 
+    static numberMin(maxWeekSpanBetweenMeetingsCtrl: FormControl) {
+        const value:number = maxWeekSpanBetweenMeetingsCtrl.value;
+        return (Number.isNaN(value) || value < 1) ? { numberMin: true } : null;
+    }    
+
     createFriendshipGroup() {
-        const friendshipGroupCreation: FriendshipGroupModel = this.frienshipGroupFactory(this.friendshipGroupForm.value.nameCtrl, this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
-        this.friendshipGroupCreated.emit(friendshipGroupCreation);
+        const friendshipGroupCreation = this.frienshipGroupFactory(this.friendshipGroupForm.value.nameCtrl, this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
+        this.tryCreateFriendshipGroup(friendshipGroupCreation);
+        //this.friendshipGroupCreated.emit(friendshipGroupCreation);
     }
+
+    tryCreateFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
+        let existingFriendshipGroupNames: string[] = [];
+
+        if(this.friendshipGroups.length) {
+            existingFriendshipGroupNames = this.friendshipGroups.map((friendshipGroup: FriendshipGroupModel) => {
+                return friendshipGroup.name;
+            });
+        }
+
+        const friendshipNameAlreadyExists = existingFriendshipGroupNames.find((name: string) => name === friendshipGroup.name);
+
+        if(friendshipNameAlreadyExists) {
+            this.friendshipGroupCreationFailed = true;
+        } else {
+            this.friendshipGroups.push(friendshipGroup);
+            this.friendshipGroupCreationFailed = false;
+            this.opened = false;
+        }
+    }    
 
     frienshipGroupFactory(name:string, maxWeekSpanBetweenMeetings:number): FriendshipGroupModel {
         return {

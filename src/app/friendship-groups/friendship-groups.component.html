@@ -1,8 +1,3 @@
-<!--<div class="alert alert-danger" *ngIf="friendshipGroupCreationFailed">
-    <button type="button" class="close" aria-label="Close" (click)="friendshipGroupCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
-    Sorry, this group name already exists. Choose another name please.
-</div>-->
-
 <div class="card-desk-wrapper">
     <div class="card-deck v-h-scrollable">
         <app-friendship-group *ngFor="let currentFriendshipGroup of friendshipGroups"
@@ -10,10 +5,9 @@
             (requestDelete)="deleteFriendshipGroup($event)">
         </app-friendship-group>
 
-        <app-toggle-show-create-friendship-group (friendshipGroupCreated)="tryCreateFriendshipGroup($event)"></app-toggle-show-create-friendship-group>
+        <app-create-friendship-group [friendshipGroups]="friendshipGroups"></app-create-friendship-group>
 
     </div>
 </div>
-
 
 <!--<button (click)="save()" class="btn btn-success">Save</button>-->

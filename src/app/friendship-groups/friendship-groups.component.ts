@@ -9,7 +9,6 @@ import { FriendshipGroupModel } from '../models/friendshipGroup.model';
 })
 export class FriendshipGroupsComponent implements OnInit {
     friendshipGroups: Array<FriendshipGroupModel>;
-    friendshipGroupCreationFailed: boolean;
 
     constructor(private friendshipGroupService: FriendshipGroupService) { }
 
@@ -19,25 +18,6 @@ export class FriendshipGroupsComponent implements OnInit {
 
     save() {
         this.friendshipGroupService.save(this.friendshipGroups);
-    }
-
-    tryCreateFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
-        let existingFriendshipGroupNames: string[] = [];
-
-        if(this.friendshipGroups.length) {
-            existingFriendshipGroupNames = this.friendshipGroups.map((friendshipGroup: FriendshipGroupModel) => {
-                return friendshipGroup.name;
-            });
-        }
-
-        const friendshipNameAlreadyExists = existingFriendshipGroupNames.find((name: string) => name === friendshipGroup.name);
-
-        if(friendshipNameAlreadyExists) {
-            this.friendshipGroupCreationFailed = true;
-        } else {
-            this.friendshipGroups.push(friendshipGroup);
-            this.friendshipGroupCreationFailed = false;
-        }
     }
 
     deleteFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
