@@ -9,8 +9,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class CreateFriendshipGroupComponent implements OnInit {
     @Input() friendshipGroups: Array<FriendshipGroupModel>;
-    @Input() opened: boolean;
 
+    opened: boolean;
     friendshipGroupCreationFailed: boolean;
 
     friendshipGroupForm: FormGroup;
@@ -18,9 +18,7 @@ export class CreateFriendshipGroupComponent implements OnInit {
     maxWeekSpanBetweenMeetingsCtrl: FormControl;
 
     constructor(private formBuilder: FormBuilder) {
-        if(this.opened === undefined) {
-            this.opened = false;
-        }
+        this.opened = false;
 
         if(!this.friendshipGroups) {
             this.friendshipGroups = new Array<FriendshipGroupModel>();
@@ -28,13 +26,7 @@ export class CreateFriendshipGroupComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.nameCtrl = this.formBuilder.control('', Validators.required);
-        this.maxWeekSpanBetweenMeetingsCtrl = this.formBuilder.control('', [Validators.required, CreateFriendshipGroupComponent.numberMin]);
-
-        this.friendshipGroupForm = this.formBuilder.group({
-            nameCtrl: this.nameCtrl,
-            maxWeekSpanBetweenMeetingsCtrl: this.maxWeekSpanBetweenMeetingsCtrl
-        });       
+        this.resetForm();
     }
 
     static numberMin(maxWeekSpanBetweenMeetingsCtrl: FormControl) {
@@ -45,7 +37,6 @@ export class CreateFriendshipGroupComponent implements OnInit {
     createFriendshipGroup() {
         const friendshipGroupCreation = this.frienshipGroupFactory(this.friendshipGroupForm.value.nameCtrl, this.friendshipGroupForm.value.maxWeekSpanBetweenMeetingsCtrl);
         this.tryCreateFriendshipGroup(friendshipGroupCreation);
-        //this.friendshipGroupCreated.emit(friendshipGroupCreation);
     }
 
     tryCreateFriendshipGroup(friendshipGroup: FriendshipGroupModel) {
@@ -63,10 +54,9 @@ export class CreateFriendshipGroupComponent implements OnInit {
             this.friendshipGroupCreationFailed = true;
         } else {
             this.friendshipGroups.push(friendshipGroup);
-            this.friendshipGroupCreationFailed = false;
-            this.opened = false;
+            this.onCreationSuccess();
         }
-    }    
+    }
 
     frienshipGroupFactory(name:string, maxWeekSpanBetweenMeetings:number): FriendshipGroupModel {
         return {
@@ -74,5 +64,21 @@ export class CreateFriendshipGroupComponent implements OnInit {
             maxWeekSpanBetweenMeetings: maxWeekSpanBetweenMeetings,
             friendships: []
         };
+    }
+
+    onCreationSuccess(): void {
+        this.friendshipGroupCreationFailed = false;
+        this.opened = false;
+        this.resetForm();
+    }    
+
+    resetForm() {
+        this.nameCtrl = this.formBuilder.control('', Validators.required);
+        this.maxWeekSpanBetweenMeetingsCtrl = this.formBuilder.control('', [Validators.required, CreateFriendshipGroupComponent.numberMin]);
+
+        this.friendshipGroupForm = this.formBuilder.group({
+            nameCtrl: this.nameCtrl,
+            maxWeekSpanBetweenMeetingsCtrl: this.maxWeekSpanBetweenMeetingsCtrl
+        });
     }
 }

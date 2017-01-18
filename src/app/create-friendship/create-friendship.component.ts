@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import { FriendshipModel } from '../models/friendship.model';
 
@@ -22,14 +22,20 @@ export interface IFriendshipFormModel {
 })
 
 export class CreateFriendshipComponent implements OnInit {
-    @Output() friendshipCreated = new EventEmitter<FriendshipModel>();
+    @Input() friendships: Array<FriendshipModel>;
+
     friendshipFormModel: IFriendshipFormModel;
+    friendshipCreationFailed: boolean;
+    opened: boolean;
 
     constructor() {
-        this.friendshipFormModel = {
-            name: '',
-            meetingDate: null
-        };
+        this.opened = false;
+
+        if(!this.friendships) {
+            this.friendships = new Array<FriendshipModel>();
+        }
+
+        this.friendshipFormModel = this.resetFormModel();
     }
 
     ngOnInit() {
@@ -37,7 +43,22 @@ export class CreateFriendshipComponent implements OnInit {
 
     createFriendship() {
         const friendshipCreation: FriendshipModel = this.frienshipFactory(this.friendshipFormModel);
-        this.friendshipCreated.emit(friendshipCreation);
+        this.tryCreateFriendship(friendshipCreation);
+    }
+
+    tryCreateFriendship(friendship: FriendshipModel) {
+        const existingFriendshipNames: string[] = this.friendships.map((friendship: FriendshipModel) => {
+            return friendship.friend.name;
+        });
+
+        const friendshipNameAlreadyExists = existingFriendshipNames.find((name: string) => name === friendship.friend.name);
+
+        if(friendshipNameAlreadyExists) {
+            this.friendshipCreationFailed = true;
+        } else {
+            this.friendships.push(friendship);
+            this.onCreationSuccess();
+        }
     }
 
     frienshipFactory(friendshipFormModel: IFriendshipFormModel): FriendshipModel {
@@ -55,5 +76,18 @@ export class CreateFriendshipComponent implements OnInit {
         }
 
         return friendship;
+    }
+
+    onCreationSuccess(): void {
+        this.friendshipCreationFailed = false;
+        this.opened = false;
+        this.friendshipFormModel = this.resetFormModel();
+    }
+
+    resetFormModel(): IFriendshipFormModel {
+        return {
+            name: '',
+            meetingDate: null
+        };
     }
 }

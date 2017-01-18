@@ -10,28 +10,11 @@ import { FriendshipModel } from '../models/friendship.model';
 export class FriendshipGroupComponent implements OnInit {
     @Input() friendshipGroup: FriendshipGroupModel;
     @Output() requestDelete = new EventEmitter<FriendshipGroupModel>();
-    
-    friendshipCreationFailed: boolean;
 
     constructor() {
     }
 
     ngOnInit() { }
-
-    tryCreateFriendship(friendship: FriendshipModel) {
-        const existingFriendshipNames: string[] = this.friendshipGroup.friendships.map((friendship: FriendshipModel) => {
-            return friendship.friend.name;
-        });
-
-        const friendshipNameAlreadyExists = existingFriendshipNames.find((name: string) => name === friendship.friend.name);
-
-        if(friendshipNameAlreadyExists) {
-            this.friendshipCreationFailed = true;
-        } else {
-            this.friendshipGroup.friendships.push(friendship);
-            this.friendshipCreationFailed = false;
-        }
-    }
 
     deleteFriendship(friendship: FriendshipModel) {
         const index: number = this.friendshipGroup.friendships.indexOf(friendship);

@@ -1,13 +1,26 @@
-<form (ngSubmit)="createFriendship()" #createFriendshipForm="ngForm">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" class="form-control" name="name" [(ngModel)]="friendshipFormModel.name" required #nameCtrl="ngModel">
-        <div *ngIf="nameCtrl.control.dirty && nameCtrl.control.hasError('required')">Name is required</div>
+<button *ngIf="!opened" type="button" class="btn btn-link" (click)="opened = !opened">
+    Create friendship
+</button>
+
+<div *ngIf="opened">
+    <button type="button" class="btn btn-link" (click)="opened = !opened">Dismiss</button>
+    
+    <div class="alert alert-danger" *ngIf="friendshipCreationFailed">
+        <button type="button" class="close" aria-label="Close" (click)="friendshipCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
+        Sorry, this friendship already exists. Choose another name please.
     </div>
 
-    <div>
-        <ng2-datepicker name="meetingDate" [(ngModel)]="friendshipFormModel.meetingDate"></ng2-datepicker>
-    </div>
+    <form (ngSubmit)="createFriendship()" #createFriendshipForm="ngForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" class="form-control" name="name" [(ngModel)]="friendshipFormModel.name" required #nameCtrl="ngModel">
+            <div *ngIf="nameCtrl.control.dirty && nameCtrl.control.hasError('required')">Name is required</div>
+        </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="!createFriendshipForm.valid">Create Friendship</button>
-</form>
+        <div>
+            <ng2-datepicker name="meetingDate" [(ngModel)]="friendshipFormModel.meetingDate"></ng2-datepicker>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!createFriendshipForm.valid">Create Friendship</button>
+    </form>
+</div>
