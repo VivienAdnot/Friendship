@@ -1,5 +1,11 @@
 <div class="card v-card">
-    <h3 class="card-header">{{friendshipGroup.name}}</h3>
+    <h3 class="card-header">
+        {{friendshipGroup.name}}
+
+        <button type="button" (click)="requestDeleteFriendshipGroup()" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </h3>
 
     <app-friendship
         *ngFor="let currentFriendship of friendshipGroup.friendships"
@@ -9,6 +15,4 @@
     </app-friendship>
 
     <app-create-friendship [friendships]="friendshipGroup.friendships"></app-create-friendship>
-
-    <!--<button (click)="requestDeleteFriendshipGroup()" class="btn btn-danger">delete {{friendshipGroup.name}}</button>-->
 </div>

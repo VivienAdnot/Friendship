@@ -2,3 +2,8 @@
     display: inline-flex;
     flex-wrap: nowrap;
 }
+
+.v-card {
+    margin-right: 10px;
+    margin-left: 10px;
+}

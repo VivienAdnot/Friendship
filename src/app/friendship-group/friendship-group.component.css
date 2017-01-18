@@ -1,8 +1,7 @@
-.v-card {
-    margin-right: 10px;
-    margin-left: 10px;
+.card-header .close {
+    display: none;
 }
 
-.card-header + .v-friend {
-    border-top: none;
+.card-header:hover .close {
+    display: block;
 }

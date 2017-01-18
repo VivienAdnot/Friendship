@@ -1,30 +1,36 @@
-<button *ngIf="!opened" type="button" class="btn btn-link" (click)="opened = !opened">
-    Create friendship group
-</button>
+<div class="card v-card">
+    <div class="card-block v-card-block">    
+        <button *ngIf="!opened" type="button" class="btn btn-link" (click)="opened = !opened">
+            Create friendship group
+        </button>
 
-<div *ngIf="opened">
-    <button type="button" class="btn btn-link" (click)="opened = !opened">Dismiss</button>
+        <div *ngIf="opened">
+            <button type="button" (click)="opened = !opened" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>        
 
-    <div class="alert alert-danger" *ngIf="friendshipGroupCreationFailed">
-        <button type="button" class="close" aria-label="Close" (click)="friendshipGroupCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
-        Sorry, this group name already exists. Choose another name please.
-    </div>
+            <div class="alert alert-danger" *ngIf="friendshipGroupCreationFailed">
+                <button type="button" class="close" aria-label="Close" (click)="friendshipGroupCreationFailed = false;"><span aria-hidden="true">&#215;</span></button>
+                Sorry, this group name already exists. Choose another name please.
+            </div>
 
-    <form (ngSubmit)="createFriendshipGroup()" [formGroup]="friendshipGroupForm">
+            <form (ngSubmit)="createFriendshipGroup()" [formGroup]="friendshipGroupForm">
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" formControlName="nameCtrl">
-            <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" formControlName="nameCtrl">
+                    <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="maxWeekSpanBetweenMeetings">Max Week Span Between Meetings</label>
+                    <input type="number" class="form-control" formControlName="maxWeekSpanBetweenMeetingsCtrl">
+                    <div *ngIf="maxWeekSpanBetweenMeetingsCtrl.dirty && maxWeekSpanBetweenMeetingsCtrl.hasError('required')">maxWeekSpanBetweenMeetingsCtrl is required</div>
+                    <div *ngIf="maxWeekSpanBetweenMeetingsCtrl.dirty && maxWeekSpanBetweenMeetingsCtrl.hasError('numberMin')">maxWeekSpanBetweenMeetingsCtrl must be >= 1</div>
+                </div>    
+
+                <button class="btn btn-primary" type="submit" [disabled]="!friendshipGroupForm.valid">Create Friendship Group</button>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="maxWeekSpanBetweenMeetings">Max Week Span Between Meetings</label>
-            <input type="number" class="form-control" formControlName="maxWeekSpanBetweenMeetingsCtrl">
-            <div *ngIf="maxWeekSpanBetweenMeetingsCtrl.dirty && maxWeekSpanBetweenMeetingsCtrl.hasError('required')">maxWeekSpanBetweenMeetingsCtrl is required</div>
-            <div *ngIf="maxWeekSpanBetweenMeetingsCtrl.dirty && maxWeekSpanBetweenMeetingsCtrl.hasError('numberMin')">maxWeekSpanBetweenMeetingsCtrl must be >= 1</div>
-        </div>    
-
-        <button class="btn btn-primary" type="submit" [disabled]="!friendshipGroupForm.valid">Create Friendship Group</button>
-    </form>
+    </div>
 </div>

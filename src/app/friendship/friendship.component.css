@@ -1,5 +1,11 @@
-
-
-.v-friend {
+.v-card-block {
     border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.v-card-block .close {
+    display: none;
+}
+
+.v-card-block:hover .close {
+    display: block;
 }

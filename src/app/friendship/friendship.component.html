@@ -1,4 +1,8 @@
-<div class="card-block v-friend">
+<div class="card-block v-card-block">
+    <button type="button" (click)="delete()" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+
     <app-friend [friend]="friendship.friend"></app-friend>
 
     <p class="card-text" *ngIf="friendship.meetings.length">
@@ -14,6 +18,4 @@
     </div>-->
 
     <ng2-datepicker (outputEvents)="met($event)"></ng2-datepicker>
-
-    <!--<button (click)="delete()" class="btn btn-danger">delete {{friendship.friend.name}}</button>-->
 </div>
